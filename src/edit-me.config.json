@@ -1,0 +1,1 @@
+{ "username" : "solace-cloud-client", "password" : "secret", "vpn" : "msgvpn-someVpn", "host" : "ws://someDomain.messaging.solace.cloud:somePort" , "slackKey" : "someSlackKey" }

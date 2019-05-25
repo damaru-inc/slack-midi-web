@@ -1,0 +1,1 @@
+curl -v -H "Content-Type: application/json" -d @challenge.json localhost:8000/incoming 

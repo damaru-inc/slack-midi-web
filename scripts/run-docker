@@ -1,0 +1,4 @@
+docker run -d --name slack \
+    -v $(pwd)/:/config \
+    -e slack_token_path=/config/slack-token \
+    gcr.io/slack-midi-1/slack-midi-1:v1

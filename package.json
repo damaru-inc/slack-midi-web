@@ -1,0 +1,14 @@
+{
+  "name": "slack-midi-web",
+  "version": "1.0.0",
+  "description": "Slack Midi web hook version",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Davis",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.0"
+  }
+}

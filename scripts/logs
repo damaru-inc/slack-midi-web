@@ -1,0 +1,1 @@
+kubectl logs -f slack-midi-5d47d9d969-cs66m

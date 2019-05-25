@@ -1,0 +1,1 @@
+docker push  gcr.io/slack-midi-1/slack-midi-1:v3

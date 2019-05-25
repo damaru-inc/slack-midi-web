@@ -1,0 +1,1 @@
+kubectl replace -f deployment.yml 

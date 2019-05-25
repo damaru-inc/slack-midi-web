@@ -1,0 +1,26 @@
+apiVersion: extensions/v1beta1 
+kind: Deployment 
+metadata:
+  name: slack-midi
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: slack-midi
+    spec:
+      containers:
+      - name: master
+        image: gcr.io/slack-midi-1/slack-midi-1:v3
+        volumeMounts:
+        - name: slack-midi-config
+          mountPath: /etc/slack-midi-config
+        env:
+        - name: slack_midi_config_path
+          value: /etc/slack-midi-config/config.json
+      volumes:
+      - name: slack-midi-config
+        secret:
+          secretName: slack-midi-config-solace
