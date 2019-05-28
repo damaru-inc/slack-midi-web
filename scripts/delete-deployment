@@ -1,1 +1,1 @@
-kubectl delete deployment slack-midi
+kubectl delete deployment slack-midi-web

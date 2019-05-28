@@ -1,0 +1,2 @@
+. common.sh
+curl  -H "Content-Type: text/plain" -d "Hi 1 there 4 sweetheart!" $IP:$PORT/raw

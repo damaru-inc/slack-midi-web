@@ -1,0 +1,1 @@
+gcloud compute addresses create midi-ip --region us-central1

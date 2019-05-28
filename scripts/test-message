@@ -1,1 +1,2 @@
-curl -v -H "Content-Type: application/json" -d @message.json localhost:8000/incoming 
+. common.sh
+curl -v -H "Content-Type: application/json" -d @message.json $IP:$PORT/in

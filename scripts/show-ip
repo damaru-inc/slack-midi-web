@@ -1,0 +1,1 @@
+gcloud compute addresses describe midi-ip --region us-central1

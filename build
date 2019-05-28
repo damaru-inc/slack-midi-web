@@ -1,0 +1,3 @@
+set -x
+VERSION=$(cat version)
+docker build -t gcr.io/slack-midi-1/slack-midi-web:$VERSION .

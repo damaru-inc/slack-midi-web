@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: slack-midi-web-service
+spec:
+  type: LoadBalancer
+  loadBalancerIP: 34.66.216.225
+  selector:
+    app: slack-midi-web
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8000

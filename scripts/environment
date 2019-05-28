@@ -1,0 +1,5 @@
+#IP=midi.damaru.com
+#IP=34.66.216.225
+IP=localhost
+#PORT=80
+PORT=8000

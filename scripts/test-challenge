@@ -1,1 +1,2 @@
-curl -v -H "Content-Type: application/json" -d @challenge.json localhost:8000/incoming 
+. environment
+curl -v -H "Content-Type: application/json" -d @challenge.json $IP:$PORT/incoming 
