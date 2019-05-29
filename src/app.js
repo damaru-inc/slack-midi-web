@@ -62,6 +62,7 @@ app.post('/in', jsonParser, function (req, res)  {
 
 app.post('/raw', textParser, function(req, res) {
     var b = req.body
+    b = String(b)
     processText(b)
     res.end()
 })
@@ -79,23 +80,17 @@ app.get('/kill', function (req, res) {
 app.listen(port, () => console.log(`listening on port ${port}!`))
 
 async function processText (text) {
-    console.log('processing ' + text)
+    //console.log('processing ' + text)
     var channel = 0
     var topic = 'midi/0/' + channel
-    console.log('topic: ' + topic)
+    //console.log('topic: ' + topic)
 
     try {
-        for (const charCode of text) {
-            var char = charCode
-
-            if (typeof charCode === 'number') {
-                char = String.fromCharCode(charCode)
-            }
-
-            console.log('char ' + char + ' type ' + typeof char )
+        for (const char of text) {
+            //console.log('char ' + char + ' type ' + typeof char )
             if (char >= '0' && char <= '9') {
                 topic = 'midi/0/' + char
-                console.log('changed topic to ' + topic)
+                //console.log('changed topic to ' + topic)
                 channel = parseInt(char)
             } else {
                 var note = midi.noteForChar(char)
@@ -122,4 +117,20 @@ function sleep(ms) {
         setTimeout(resolve, ms)
     })
 }
+
+process.on('exit', function () {
+    console.log('Shutting down...')
+    pub.disconnect()
+})
+
+process.on('SIGTERM', () => {
+    console.log('Caught a SIGTERM. Shutting down...')
+    process.exit()
+})
+
+process.on('SIGINT', () => {
+    console.log('Caught a SIGINT. Shutting down...')
+    process.exit()
+})
+
 
