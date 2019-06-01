@@ -1,1 +1,3 @@
-docker push  gcr.io/slack-midi-1/slack-midi-web:1.0.0
+set -x
+VERSION=$(cat ../version)
+docker push  gcr.io/slack-midi-1/slack-midi-web:$VERSION

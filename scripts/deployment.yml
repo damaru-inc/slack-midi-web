@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: master
-        image: gcr.io/slack-midi-1/slack-midi-web:1.0.0
+        image: gcr.io/slack-midi-1/slack-midi-web:1.0.1
         volumeMounts:
         - name: slack-midi-config
           mountPath: /etc/slack-midi-config
