@@ -6,8 +6,6 @@ const bodyParser = require('body-parser')
 const util = require('util')
 
 const midi = new Midi();
-const shortDur = 200
-const longDur = shortDur * 2
 
 // Import the config, either from the local file system or a Kubernetes secret
 // passed in as an environment variable.
@@ -17,6 +15,16 @@ var configPath = "./solace.json"
 if (process.env.slack_midi_config_path) {
     configPath = process.env.slack_midi_config_path
 }
+
+var baseDuration = 250
+
+if (process.env.duration) {
+    baseDuration = Number(process.env.duration)
+    console.log("override duration to " + baseDuration)
+}
+
+var durations = []
+setupDurations()
 
 var config = require(configPath)
 
@@ -48,6 +56,11 @@ app.post('/in', jsonParser, function (req, res)  {
         console.log('got challenge: ' + JSON.stringify(payload))
         res.send(payload.challenge + '\n')
     // Messages will get sent here in the event.text field.
+    } else if (payload.text) {
+        var text = payload.text
+        console.log('got event.text: ' + text)
+        processText(text)
+        res.end()
     } else if (payload.event.text) {
         var text = payload.event.text
         console.log('got text: ' + text)
@@ -80,10 +93,18 @@ app.get('/kill', function (req, res) {
 app.listen(port, () => console.log(`listening on port ${port}!`))
 
 async function processText (text) {
-    //console.log('processing ' + text)
     var channel = 0
     var topic = 'midi/0/' + channel
     //console.log('topic: ' + topic)
+    var shortDur = getDuration()
+    var longDur = shortDur * 2
+    console.log(`processing dur ${shortDur} ${text}` )
+
+    // Sleep until the next second starts.
+    var d = new Date()
+    var time = d.getTime()
+    var ms = time % 1000
+    await sleep(shortDur)
 
     try {
         for (const char of text) {
@@ -109,6 +130,31 @@ async function processText (text) {
         }
     } catch (e) {
         console.log('Error in processText function: ' + e)
+    }
+}
+
+function getDuration() {
+    var index = Math.trunc(Math.random() * durations.length)
+    var dur = durations[index]
+    return dur
+}
+
+function setupDurations() {
+    var scales = [[1, 4], [1.5, 1], [2, 4], [3, 2], [4, 3], [6, 1]];
+
+    var i = 0
+    var j = 0
+
+    for (i = 0; i < scales.length; i++) {
+        var arr = scales[i]
+        var scale = arr[0]
+        var repeat = arr[1]
+
+        for (j = 0; j < repeat; j++) {
+            var val = Math.trunc(scale * baseDuration)
+            durations.push(val)
+            console.log(`added ${val}`)
+        }
     }
 }
 

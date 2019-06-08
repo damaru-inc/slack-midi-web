@@ -13,13 +13,15 @@ spec:
     spec:
       containers:
       - name: master
-        image: gcr.io/slack-midi-1/slack-midi-web:1.0.1
+        image: gcr.io/slack-midi-1/slack-midi-web:1.1.0
         volumeMounts:
         - name: slack-midi-config
           mountPath: /etc/slack-midi-config
         env:
         - name: slack_midi_config_path
           value: /etc/slack-midi-config/solace.json
+        - name: duration
+          value: '1000'
         livenessProbe:
           httpGet:
             path: /health
