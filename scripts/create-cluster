@@ -1,5 +1,5 @@
 gcloud container clusters create midi-cluster \
-      --num-nodes=1 \
+      --num-nodes=2 \
       --zone=us-central1-f \
       --machine-type g1-small
 

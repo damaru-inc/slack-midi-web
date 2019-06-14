@@ -16,6 +16,13 @@ if (process.env.slack_midi_config_path) {
     configPath = process.env.slack_midi_config_path
 }
 
+var legato = 0.5
+
+if (process.env.legato) {
+    legato = Number(process.env.legato)
+    console.log("override legato to " + legato)
+}
+
 var baseDuration = 250
 
 if (process.env.duration) {
@@ -109,7 +116,10 @@ async function processText (text) {
     try {
         for (const char of text) {
             //console.log('char ' + char + ' type ' + typeof char )
-            if (char >= '0' && char <= '9') {
+            if (char === '!') {
+                shortDur = baseDuration
+                longDur = shortDur * 2
+            } else if (char >= '0' && char <= '9') {
                 topic = 'midi/0/' + char
                 //console.log('changed topic to ' + topic)
                 channel = parseInt(char)
@@ -122,9 +132,12 @@ async function processText (text) {
                     var duration = midi.isUpper(char) ? longDur : shortDur
                     var midiString = midi.shortMessage(channel, midi.NOTE_ON, note, 100)
                     pub.publish(midiString, topic)
-                    await sleep(duration)
+                    var beforeNoteOff = Math.trunc(duration * legato)
+                    var afterNoteOff = duration - beforeNoteOff
+                    await sleep(beforeNoteOff)
                     midiString = midi.shortMessage(channel, midi.NOTE_OFF, note, 100)
                     pub.publish(midiString, topic)
+                    await sleep(afterNoteOff)
                 }
             }
         }

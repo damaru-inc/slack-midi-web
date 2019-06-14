@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: slack-midi-web
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
     type: Recreate
   template:
@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: master
-        image: gcr.io/slack-midi-1/slack-midi-web:1.1.0
+        image: gcr.io/slack-midi-1/slack-midi-web:1.3.0
         volumeMounts:
         - name: slack-midi-config
           mountPath: /etc/slack-midi-config
@@ -21,7 +21,7 @@ spec:
         - name: slack_midi_config_path
           value: /etc/slack-midi-config/solace.json
         - name: duration
-          value: '1000'
+          value: '250'
         livenessProbe:
           httpGet:
             path: /health
