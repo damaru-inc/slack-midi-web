@@ -129,13 +129,17 @@ async function processText (text) {
                 if (!note) {
                     await sleep(shortDur)
                 } else {
+                    var velocityBase = 40;
+                    var velocityRange = 128 - velocityBase;
+                    var velocity = Math.trunc(Math.random() * velocityRange) + velocityBase;
+                    console.log(`v: ${velocity}`)
                     var duration = midi.isUpper(char) ? longDur : shortDur
-                    var midiString = midi.shortMessage(channel, midi.NOTE_ON, note, 100)
+                    var midiString = midi.shortMessage(channel, midi.NOTE_ON, note, velocity)
                     pub.publish(midiString, topic)
                     var beforeNoteOff = Math.trunc(duration * legato)
                     var afterNoteOff = duration - beforeNoteOff
                     await sleep(beforeNoteOff)
-                    midiString = midi.shortMessage(channel, midi.NOTE_OFF, note, 100)
+                    midiString = midi.shortMessage(channel, midi.NOTE_OFF, note, velocity)
                     pub.publish(midiString, topic)
                     await sleep(afterNoteOff)
                 }
