@@ -65,12 +65,12 @@ app.post('/in', jsonParser, function (req, res)  {
     // Messages will get sent here in the event.text field.
     } else if (payload.text) {
         var text = payload.text
-        console.log('got event.text: ' + text)
+        //console.log('got event.text: ' + text)
         processText(text)
         res.end()
     } else if (payload.event.text) {
         var text = payload.event.text
-        console.log('got text: ' + text)
+        //console.log('got text: ' + text)
         processText(text)
         res.end()
     } else {
@@ -132,7 +132,7 @@ async function processText (text) {
                     var velocityBase = 40;
                     var velocityRange = 128 - velocityBase;
                     var velocity = Math.trunc(Math.random() * velocityRange) + velocityBase;
-                    console.log(`v: ${velocity}`)
+                    //console.log(`v: ${velocity}`)
                     var duration = midi.isUpper(char) ? longDur : shortDur
                     var midiString = midi.shortMessage(channel, midi.NOTE_ON, note, velocity)
                     pub.publish(midiString, topic)
