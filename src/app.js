@@ -65,7 +65,7 @@ app.post('/in', jsonParser, function (req, res)  {
     // Messages will get sent here in the event.text field.
     } else if (payload.text) {
         var text = payload.text
-        //console.log('got event.text: ' + text)
+        console.log('got event.text: ' + text)
         processText(text)
         res.end()
     } else if (payload.event.text) {
