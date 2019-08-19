@@ -1,5 +1,6 @@
 module.exports = function () {
 
+  // These are in order of the most frequently used letters.
   this.charMap = new Map([
     ['e', 60], // C4
     ['t', 48], // C3
