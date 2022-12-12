@@ -13,6 +13,6 @@
     "body-parser": "^1.19.0",
     "express": "^4.17.3",
     "save": "^2.4.0",
-    "solclientjs": "^10.2.1"
+    "solclientjs": "^10.11.0"
   }
 }
