@@ -10,7 +10,7 @@
   "author": "Michael Davis",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "express": "^4.17.3",
     "save": "^2.4.0",
     "solclientjs": "^10.11.0"
